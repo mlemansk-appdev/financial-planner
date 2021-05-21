@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Payment occurrence:</strong>
+  <%= @adjustment.payment_occurrence %>
+</p>
+
+<p>
+  <strong>Loan:</strong>
+  <%= @adjustment.loan_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @adjustment.user_id %>
+</p>
+
+<p>
+  <strong>Pmt adjustment:</strong>
+  <%= @adjustment.pmt_adjustment %>
+</p>
+
+<p>
+  <strong>Beg pay adj:</strong>
+  <%= @adjustment.beg_pay_adj %>
+</p>
+
+<p>
+  <strong>End pay adj:</strong>
+  <%= @adjustment.end_pay_adj %>
+</p>
+
+<p>
+  <strong>Adjustment details:</strong>
+  <%= @adjustment.adjustment_details %>
+</p>
+
+<%= link_to 'Edit', edit_adjustment_path(@adjustment) %> |
+<%= link_to 'Back', adjustments_path %>

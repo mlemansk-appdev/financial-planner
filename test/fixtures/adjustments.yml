@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payment_occurrence: MyString
+  loan_id: 1
+  user_id: 1
+  pmt_adjustment: 1.5
+  beg_pay_adj: 1
+  end_pay_adj: 1
+  adjustment_details: MyString
+
+two:
+  payment_occurrence: MyString
+  loan_id: 1
+  user_id: 1
+  pmt_adjustment: 1.5
+  beg_pay_adj: 1
+  end_pay_adj: 1
+  adjustment_details: MyString

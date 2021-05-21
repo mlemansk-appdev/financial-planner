@@ -1,0 +1,62 @@
+<%= form_with(model: loan) do |form| %>
+  <% if loan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(loan.errors.count, "error") %> prohibited this loan from being saved:</h2>
+
+      <ul>
+        <% loan.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :current_balance %>
+    <%= form.text_field :current_balance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :original_amount %>
+    <%= form.text_field :original_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :interest_rate %>
+    <%= form.text_field :interest_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :periods_in_year %>
+    <%= form.number_field :periods_in_year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :loan_name %>
+    <%= form.text_field :loan_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :monthly_min_payment %>
+    <%= form.text_field :monthly_min_payment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :schedule_hash %>
+    <%= form.text_field :schedule_hash %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adj_schedule_hash %>
+    <%= form.text_field :adj_schedule_hash %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

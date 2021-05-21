@@ -1,0 +1,52 @@
+<%= form_with(model: adjustment) do |form| %>
+  <% if adjustment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(adjustment.errors.count, "error") %> prohibited this adjustment from being saved:</h2>
+
+      <ul>
+        <% adjustment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :payment_occurrence %>
+    <%= form.text_field :payment_occurrence %>
+  </div>
+
+  <div class="field">
+    <%= form.label :loan_id %>
+    <%= form.number_field :loan_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pmt_adjustment %>
+    <%= form.text_field :pmt_adjustment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :beg_pay_adj %>
+    <%= form.number_field :beg_pay_adj %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_pay_adj %>
+    <%= form.number_field :end_pay_adj %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adjustment_details %>
+    <%= form.text_field :adjustment_details %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

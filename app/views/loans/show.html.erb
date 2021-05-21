@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Current balance:</strong>
+  <%= @loan.current_balance %>
+</p>
+
+<p>
+  <strong>Original amount:</strong>
+  <%= @loan.original_amount %>
+</p>
+
+<p>
+  <strong>Interest rate:</strong>
+  <%= @loan.interest_rate %>
+</p>
+
+<p>
+  <strong>Periods in year:</strong>
+  <%= @loan.periods_in_year %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @loan.user_id %>
+</p>
+
+<p>
+  <strong>Loan name:</strong>
+  <%= @loan.loan_name %>
+</p>
+
+<p>
+  <strong>Monthly min payment:</strong>
+  <%= @loan.monthly_min_payment %>
+</p>
+
+<p>
+  <strong>Schedule hash:</strong>
+  <%= @loan.schedule_hash %>
+</p>
+
+<p>
+  <strong>Adj schedule hash:</strong>
+  <%= @loan.adj_schedule_hash %>
+</p>
+
+<%= link_to 'Edit', edit_loan_path(@loan) %> |
+<%= link_to 'Back', loans_path %>
