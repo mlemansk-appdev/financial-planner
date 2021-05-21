@@ -17,12 +17,15 @@
         </a>
       </div>
 
-      <div class="col">
-        <a href="/delete_loan/<%= @loan.id %>" class="btn btn-block btn-outline-secondary">
+       <div class="col">
+        <%= link_to 'Delete', @loan, method: :destroy, class: "btn btn-block btn-outline-secondary" %>
+      </div> 
+      <!-- <div class="col">
+        <a href="/delete_loan/<%#= @loan.id %>" class="btn btn-block btn-outline-secondary">
           Delete loan
         </a>
-      </div>
-    </div>
+      </div> -->
+    </div> 
 
     <dl>
       <dt>

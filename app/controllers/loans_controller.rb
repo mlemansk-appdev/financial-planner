@@ -74,8 +74,7 @@ class LoansController < ApplicationController
   end
 
   def show
-    #@loan = Loan.find(params.fetch("id"))
-    
+  
     @pmt_schedule = @loan.pay_schedule;
     @pmt_schedule_adj = @loan.adj_pay_schedule(@loan.adjustments)
     
@@ -92,22 +91,16 @@ class LoansController < ApplicationController
   end
 
   def create
-    @loan = Loan.new
+    @loan = Loan.new(loan_params)
 
-    @loan.current_balance = params.fetch("current_balance")
-    @loan.original_amount = params.fetch("original_amount")
-    @loan.interest_rate = params.fetch("interest_rate")
-    @loan.periods_in_year = params.fetch("periods_in_year")
-    @loan.user_id = params.fetch("user_id")
-    @loan.loan_name = params.fetch("loan_name")
-    @loan.monthly_min_payment = params.fetch("monthly_min_payment")
-
-    if @loan.valid?
-      @loan.save
-
-      redirect_to("/loans", :notice => "Loan created successfully.")
-    else
-      render("loan_templates/new_form_with_errors.html.erb")
+    respond_to do |format|
+      if @loan.save
+        format.html { redirect_to @loan, notice: "Loan was successfully created." }
+        format.json { render :show, status: :created, location: @loan }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @loan.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -133,7 +126,10 @@ class LoansController < ApplicationController
   def destroy
     @loan.destroy
 
-    redirect_to("/loans", :notice => "Loan deleted successfully.")
+    respond_to do |format|
+      format.html { redirect_to loans_url, notice: "Actor was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private
