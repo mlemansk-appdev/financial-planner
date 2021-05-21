@@ -1,43 +1,182 @@
-<p id="notice"><%= notice %></p>
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      All loans
+    </h1>
 
-<h1>Loans</h1>
+    <a href="/loans/new" class="btn btn-block btn-outline-secondary">
+      Add a new loan
+    </a>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Current balance</th>
-      <th>Original amount</th>
-      <th>Interest rate</th>
-      <th>Periods in year</th>
-      <th>User</th>
-      <th>Loan name</th>
-      <th>Monthly min payment</th>
-      <th>Schedule hash</th>
-      <th>Adj schedule hash</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @loans.each do |loan| %>
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
       <tr>
-        <td><%= loan.current_balance %></td>
-        <td><%= loan.original_amount %></td>
-        <td><%= loan.interest_rate %></td>
-        <td><%= loan.periods_in_year %></td>
-        <td><%= loan.user_id %></td>
-        <td><%= loan.loan_name %></td>
-        <td><%= loan.monthly_min_payment %></td>
-        <td><%= loan.schedule_hash %></td>
-        <td><%= loan.adj_schedule_hash %></td>
-        <td><%= link_to 'Show', loan %></td>
-        <td><%= link_to 'Edit', edit_loan_path(loan) %></td>
-        <td><%= link_to 'Destroy', loan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <th>
+          Loan Name
+        </th>
+
+        <th>
+          Current Balance
+        </th>
+        
+        <th>
+          Original Amount
+        </th>
+
+        <th>
+          Interest Rate
+        </th>
+
+        <th>
+          Monthly Minimum
+        </th>
+        
+        <th>
+           Original Payoff Period
+        </th>
+
+        <th>
+           Adjusted Payoff Period
+        </th>        
+        
+        <th>
+        </th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+      <% @loans.each_with_index do |loan , index| %>
+      <tr>
 
-<%= link_to 'New Loan', new_loan_path %>
+        <td>
+          <%= loan.loan_name %>
+        </td>
+
+        <td>
+          <%= number_to_currency(loan.current_balance) %>
+        </td>
+        
+        <td>
+          <%= number_to_currency(loan.original_amount) %>
+        </td>
+
+        <td>
+          <%= number_to_percentage(loan.interest_rate) %>
+        </td>
+
+        <td>
+          <%= number_to_currency(loan.monthly_min_payment) %>
+        </td>
+        
+        <td>
+          <%= @pay_off_period[index] %>
+        </td>
+
+        <td>
+          <%= @pay_off_period_adj[index] %>
+        </td>
+
+        <td>
+          <a href="/loans/<%= loan.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+
+        
+<!--<div>-->
+<!--  < % @loans.each_with_index do |loan , index| %>-->
+<!--    < %= column_chart [ -->
+<!--        {name: loan.loan_name , data: @pmt_schedule_chart[index]} ,-->
+<!--        {name: loan.loan_name , data: @adj_pmt_schedule_chart[index]} ,-->
+<!--    ] %>-->
+<!--  < % end %>-->
+<!--</div>-->
+<!--<div>-->
+<!--  < %= column_chart @data.map { |data|-->
+<!--    {name: data.fetch(:name) , data: data.fetch(:data)} -->
+<!--  } , stacked: true , prefix: "$" , thousands: "," %>-->
+<!--</div>-->
+<!--<div>-->
+<!--  < %= column_chart @data_adj.map { |data|-->
+<!--    {name: data.fetch(:name) , data: data.fetch(:data)} -->
+<!--  } , stacked: true , prefix: "$" , thousands: "," %>-->
+<!--</div>-->
+
+<!-- <div>
+  <%#= column_chart [{name: "Total Balance" , data: @total_pmt_schedule_chart} , {name: "Total Balance with Adjustments" , data: @total_adj_pmt_schedule_chart}], prefix: "$" , thousands: "," %>
+</div> -->
+<!--<div>-->
+<!--  < %= line_chart [{name: "Balance", data: @pmt_schedule_chart} , {name: "Adj Balance", data: @adj_pmt_schedule_chart}] %>-->
+<!--</div>-->
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+
+        <th>
+          Total Interest with Minimum Payments
+        </th>
+
+        <th>
+          Original Time Until Payoff
+        </th>
+        <th>
+          Total Interest with Adjusted Payments
+        </th>
+        
+        <th>
+          Adjusted Time Until Payoff
+        </th>
+        
+        <th>
+          Total Savings!
+        </th>
+        
+                
+        <th>
+          Total Time Savings!
+        </th>
+      </tr>
+      <tr>
+
+        <td>
+          <%= number_to_currency(@total_interest) %>
+        </td>
+        <td>
+          <%= @pay_off_period.max %>
+        </td>
+        <td>
+          <%= number_to_currency(@total_adj_interest) %>
+        </td>
+
+        <td>
+          <%= @pay_off_period_adj.max %>
+        </td>
+
+        <td>
+          <%= number_to_currency(@total_interest - @total_adj_interest ) %>
+        </td>
+
+        <td>
+          <% if @pay_off_period_adj.max == nil || @pay_off_period.max == nil%>
+          0 Months
+          <% else %>
+          <%= @pay_off_period.max - @pay_off_period_adj.max %> Months
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>        
