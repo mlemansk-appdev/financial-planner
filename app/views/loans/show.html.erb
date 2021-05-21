@@ -1,49 +1,186 @@
-<p id="notice"><%= notice %></p>
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      <%= @loan.loan_name %> Details
+    </h1>
 
-<p>
-  <strong>Current balance:</strong>
-  <%= @loan.current_balance %>
-</p>
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/loans" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
 
-<p>
-  <strong>Original amount:</strong>
-  <%= @loan.original_amount %>
-</p>
+      <div class="col">
+        <a href="/loans/<%= @loan.id %>/edit" class="btn btn-block btn-outline-secondary">
+          Edit loan
+        </a>
+      </div>
 
-<p>
-  <strong>Interest rate:</strong>
-  <%= @loan.interest_rate %>
-</p>
+      <div class="col">
+        <a href="/delete_loan/<%= @loan.id %>" class="btn btn-block btn-outline-secondary">
+          Delete loan
+        </a>
+      </div>
+    </div>
 
-<p>
-  <strong>Periods in year:</strong>
-  <%= @loan.periods_in_year %>
-</p>
+    <dl>
+      <dt>
+        Loan name
+      </dt>
+      <dd>
+        <%= @loan.loan_name %>
+      </dd>
+      
+      <dt>
+        Current balance
+      </dt>
+      <dd>
+        <%= number_to_currency(@loan.current_balance) %>
+      </dd>
 
-<p>
-  <strong>User:</strong>
-  <%= @loan.user_id %>
-</p>
+      <dt>
+        Original amount
+      </dt>
+      <dd>
+        <%= number_to_currency(@loan.original_amount) %>
+      </dd>
 
-<p>
-  <strong>Loan name:</strong>
-  <%= @loan.loan_name %>
-</p>
+      <dt>
+        Interest rate
+      </dt>
+      <dd>
+        <%= number_to_percentage(@loan.interest_rate) %>
+      </dd>
+      
+      <dt>
+        Minimum Payment
+      </dt>
+      <dd>
+        <%= number_to_currency(@loan.monthly_min_payment) %>
+      </dd>
 
-<p>
-  <strong>Monthly min payment:</strong>
-  <%= @loan.monthly_min_payment %>
-</p>
+      <dt>
+        Periods in year
+      </dt>
+      <dd>
+        <%= @loan.periods_in_year %>
+      </dd>
 
-<p>
-  <strong>Schedule hash:</strong>
-  <%= @loan.schedule_hash %>
-</p>
+    </dl>
+  </div>
+</div>
 
-<p>
-  <strong>Adj schedule hash:</strong>
-  <%= @loan.adj_schedule_hash %>
-</p>
+<!-- <div>
+  <%#= line_chart [{name: "Balance", data: @pmt_schedule_chart} , {name: "Adj Balance", data: @adj_pmt_schedule_chart}] %>
+</div> -->
 
-<%= link_to 'Edit', edit_loan_path(@loan) %> |
-<%= link_to 'Back', loans_path %>
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      Loan Schedule
+    </h1>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+
+        <th>
+          Payment No.
+        </th>
+
+        <th>
+          Beginning Balance
+        </th>
+
+        <th>
+          Scheduled Payment
+        </th>
+
+        <th>
+          Adjusted Payment
+        </th>
+
+        <th>
+          Interest
+        </th>
+
+        <th>
+          Ending Balance
+        </th>
+
+        <th>
+          Cumulative Interest
+        </th>
+
+        <th>
+          Adj End Balance
+        </th>
+
+        <th>
+          Adj Cumulative Interest
+        </th>
+      </tr>
+
+     <% @pmt_schedule.each do |schedule| %>
+      <tr>
+
+        <td>
+          <%= schedule["pmt_no"] %>
+        </td>
+
+        <td>
+          <%= number_to_currency(schedule["beg_balance"]) %>
+        </td>
+
+        <td>
+          <%= number_to_currency(schedule["pmt_amt"]) %>
+        </td>
+
+        <td>
+          <% if @pmt_schedule_adj[schedule["pmt_no"] - 1].blank? %>
+            <%= number_to_currency(0) %>
+          <% else %>
+            <%= number_to_currency(@pmt_schedule_adj[schedule["pmt_no"] - 1]["pmt_amt_adj"]) %>
+          <% end %>
+        </td>
+
+        <td>
+          <%= number_to_currency(schedule["interest"]) %>
+        </td>
+
+        <td>
+          <%= number_to_currency(schedule["end_balance"]) %>
+        </td>
+        <td>
+          <%= number_to_currency(schedule["cum_int"]) %>
+        </td>
+
+        <td>
+          <% if @pmt_schedule_adj[schedule["pmt_no"] - 1].blank? %>
+            <%= number_to_currency(@pmt_schedule_adj[@pmt_schedule_adj.length-1]["end_balance_adj"]) %>
+          <% else %>
+            <%= number_to_currency(@pmt_schedule_adj[schedule["pmt_no"] - 1]["end_balance_adj"]) %>
+          <% end %>
+        </td>
+
+        <td>
+          <% if @pmt_schedule_adj[schedule["pmt_no"] - 1].blank? %>
+            <%= number_to_currency(@pmt_schedule_adj[@pmt_schedule_adj.length-1]["cum_int_adj"]) %>
+          <% else %>
+            <%= number_to_currency(@pmt_schedule_adj[schedule["pmt_no"] - 1]["cum_int_adj"]) %>
+          <% end %>
+        </td>
+        
+      </tr>
+    <% end %>
+    
+    </table>
+  </div>
+</div>

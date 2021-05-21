@@ -74,10 +74,10 @@ class LoansController < ApplicationController
   end
 
   def show
-    @loan = Loan.find(params.fetch("id_to_display"))
+    #@loan = Loan.find(params.fetch("id"))
     
     @pmt_schedule = @loan.pay_schedule;
-    @pmt_schedule_adj = @loan.adj_pay_schedule(@loan.pmt_adjustments)
+    @pmt_schedule_adj = @loan.adj_pay_schedule(@loan.adjustments)
     
     @pmt_schedule_chart =  @pmt_schedule.map{|t| [ t["pmt_no"], t["beg_balance"] ] };
     @adj_pmt_schedule_chart = @pmt_schedule_adj.map{|t| [ t["pmt_no"], t["beg_balance_adj"] ] };
@@ -85,13 +85,13 @@ class LoansController < ApplicationController
     render
   end
 
-  def new_form
+  def new
     @loan = Loan.new
 
-    render("loan_templates/new_form.html.erb")
+    render
   end
 
-  def create_row
+  def create
     @loan = Loan.new
 
     @loan.current_balance = params.fetch("current_balance")
@@ -111,34 +111,26 @@ class LoansController < ApplicationController
     end
   end
 
-  def edit_form
-    @loan = Loan.find(params.fetch("prefill_with_id"))
+  def edit
+    @loan = Loan.find(params.fetch("id"))
 
-    render("loan_templates/edit_form.html.erb")
+    render
   end
 
-  def update_row
-    @loan = Loan.find(params.fetch("id_to_modify"))
+  def update
 
-    @loan.current_balance = params.fetch("current_balance")
-    @loan.original_amount = params.fetch("original_amount")
-    @loan.interest_rate = params.fetch("interest_rate")
-    @loan.periods_in_year = params.fetch("periods_in_year")
-    @loan.loan_name = params.fetch("loan_name")
-    @loan.monthly_min_payment = params.fetch("monthly_min_payment")
-
-    if @loan.valid?
-      @loan.save
-
-      redirect_to("/loans/#{@loan.id}", :notice => "Loan updated successfully.")
-    else
-      render("loan_templates/edit_form_with_errors.html.erb")
+    respond_to do |format|
+      if @loan.update(loan_params)
+        format.html { redirect_to @loan, notice: "Loan was successfully updated." }
+        format.json { render :show, status: :ok, location: @loan }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @loan.errors, status: :unprocessable_entity }
+      end
     end
   end
 
-  def destroy_row
-    @loan = Loan.find(params.fetch("id_to_remove"))
-
+  def destroy
     @loan.destroy
 
     redirect_to("/loans", :notice => "Loan deleted successfully.")
