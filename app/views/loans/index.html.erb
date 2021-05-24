@@ -113,9 +113,11 @@
 <!--  } , stacked: true , prefix: "$" , thousands: "," %>-->
 <!--</div>-->
 
-<!-- <div>
-  <%#= column_chart [{name: "Total Balance" , data: @total_pmt_schedule_chart} , {name: "Total Balance with Adjustments" , data: @total_adj_pmt_schedule_chart}], prefix: "$" , thousands: "," %>
-</div> -->
+<div>
+  <%= column_chart [{name: "Total Balance" , data: @total_pmt_schedule_chart} , {name: "Total Balance with Adjustments" , data: @total_adj_pmt_schedule_chart}], prefix: "$" , thousands: "," %>
+</div> 
+
+
 <!--<div>-->
 <!--  < %= line_chart [{name: "Balance", data: @pmt_schedule_chart} , {name: "Adj Balance", data: @adj_pmt_schedule_chart}] %>-->
 <!--</div>-->

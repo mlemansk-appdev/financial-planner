@@ -84,4 +84,5 @@ group :development do
 end
 
 #App Specific Gems
-gem "chartkick"
+gem 'chartkick'
+gem 'sprockets', '~> 4.0'

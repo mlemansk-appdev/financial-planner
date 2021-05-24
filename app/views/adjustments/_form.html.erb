@@ -11,20 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :payment_occurrence %>
-    <%= form.text_field :payment_occurrence %>
+    <%= form.select :payment_occurrence, [['Recurring'], ['One Time'], ['Between']] %>
   </div>
 
   <div class="field">
     <%= form.label :loan_id %>
     <%= form.number_field :loan_id %>
+    <%= form.collection_select :loan_id, Loan.order(:loan_name),:id,:loan_name, include_blank: true %>  %>
   </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
-  </div>
+  <%= form.hidden_field :user_id, value: current_user.id%>
 
   <div class="field">
     <%= form.label :pmt_adjustment %>

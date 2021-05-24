@@ -20,11 +20,7 @@
        <div class="col">
         <%= link_to 'Delete', @loan, method: :delete, class: "btn btn-block btn-outline-secondary" %>
       </div> 
-      <!-- <div class="col">
-        <a href="/delete_loan/<%#= @loan.id %>" class="btn btn-block btn-outline-secondary">
-          Delete loan
-        </a>
-      </div> -->
+
     </div> 
 
     <dl>
@@ -74,9 +70,14 @@
   </div>
 </div>
 
-<!-- <div>
-  <%#= line_chart [{name: "Balance", data: @pmt_schedule_chart} , {name: "Adj Balance", data: @adj_pmt_schedule_chart}] %>
-</div> -->
+<div>
+  <%= line_chart [{name: "Balance", data: @pmt_schedule_chart} , {name: "Adj Balance", data: @adj_pmt_schedule_chart}] %>
+  <%= timeline [
+  ["Washington", "1789-04-29", "1797-03-03"],
+  ["Adams", "1797-03-03", "1801-03-03"],
+  ["Jefferson", "1801-03-03", "1809-03-03"]
+] %>
+</div>
 
 <div class="row mb-3">
   <div class="col-md-12">
