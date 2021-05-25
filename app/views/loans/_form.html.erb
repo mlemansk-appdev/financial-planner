@@ -11,52 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
+<hr>
+  <div class="form-group">
     <%= form.label :current_balance %>
-    <%= form.text_field :current_balance %>
+    <%= form.text_field :current_balance, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :original_amount %>
-    <%= form.text_field :original_amount %>
+    <%= form.text_field :original_amount, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :interest_rate %>
-    <%= form.text_field :interest_rate %>
+    <%= form.text_field :interest_rate, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :periods_in_year %>
-    <%= form.number_field :periods_in_year %>
+    <%= form.number_field :periods_in_year, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
-  </div>
+  <%= form.hidden_field :user_id, value: current_user.id%>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :loan_name %>
-    <%= form.text_field :loan_name %>
+    <%= form.text_field :loan_name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :monthly_min_payment %>
-    <%= form.text_field :monthly_min_payment %>
+    <%= form.text_field :monthly_min_payment, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :schedule_hash %>
-    <%= form.text_field :schedule_hash %>
-  </div>
-
-  <div class="field">
-    <%= form.label :adj_schedule_hash %>
-    <%= form.text_field :adj_schedule_hash %>
-  </div>
-
-  <div class="actions">
+  <div class="btn btn-block btn-outline-primary">
     <%= form.submit %>
   </div>
+
+ <hr>
 <% end %>
