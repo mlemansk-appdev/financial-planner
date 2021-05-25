@@ -11,39 +11,41 @@
     </div>
   <% end %>
 
+<hr>
   <div class="form-group">
     <%= form.label :payment_occurrence %>
-    <%= form.select :payment_occurrence, [['Recurring'], ['One Time'], ['Between']] %>
+    <%= form.select :payment_occurrence, [['Recurring'], ['One Time'], ['Between']] , {prompt: "Select occurrence type"},  {class: "form-control"} %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :loan_id %>
-    <%= form.collection_select :loan_id, current_user.loans.order(:loan_name),:id,:loan_name, include_blank: true %>  
+    <%= form.collection_select :loan_id, current_user.loans.order(:loan_name),:id,:loan_name, {include_blank: true},  {class: "form-control"} %>  
   </div>
 
   <%= form.hidden_field :user_id, value: current_user.id%>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :pmt_adjustment %>
-    <%= form.text_field :pmt_adjustment %>
+    <%= form.text_field :pmt_adjustment, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :beg_pay_adj %>
-    <%= form.number_field :beg_pay_adj %>
+    <%= form.number_field :beg_pay_adj, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :end_pay_adj %>
-    <%= form.number_field :end_pay_adj %>
+    <%= form.number_field :end_pay_adj, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :adjustment_details %>
-    <%= form.text_field :adjustment_details %>
+    <%= form.text_field :adjustment_details, class: "form-control" %>
   </div>
 
-  <div class="actions">
+  <div class="btn btn-block btn-outline-primary">
     <%= form.submit %>
   </div>
 <% end %>
+<hr>
