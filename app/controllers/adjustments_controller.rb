@@ -3,7 +3,7 @@ class AdjustmentsController < ApplicationController
 
   # GET /adjustments or /adjustments.json
   def index
-    @adjustments = Adjustment.all
+    @adjustments = current_user.adjustments.all
   end
 
   # GET /adjustments/1 or /adjustments/1.json

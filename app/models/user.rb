@@ -17,6 +17,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :pmt_adjustments, :dependent => :destroy
+  has_many :adjustments, :dependent => :destroy
   has_many :loans, :dependent => :destroy
 end

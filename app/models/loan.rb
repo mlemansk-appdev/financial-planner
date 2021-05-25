@@ -90,11 +90,11 @@ class Loan < ApplicationRecord
           # during this loan period and adjusting payment accordingly
           
           pmt_adj_table.each do | adjustment |
-            if adjustment.payment_occurence == "One Time" && adjustment.beg_pay_adj == pmt_no
+            if adjustment.payment_occurrence == "One Time" && adjustment.beg_pay_adj == pmt_no
               pmt_amt_adj += adjustment.pmt_adjustment;
-            elsif adjustment.payment_occurence == "Recurring" && adjustment.beg_pay_adj <= pmt_no
+            elsif adjustment.payment_occurrence == "Recurring" && adjustment.beg_pay_adj <= pmt_no
               pmt_amt_adj += adjustment.pmt_adjustment;
-            elsif adjustment.payment_occurence == "Between" && adjustment.beg_pay_adj <= pmt_no && adjustment.end_pay_adj >= pmt_no
+            elsif adjustment.payment_occurrence == "Between" && adjustment.beg_pay_adj <= pmt_no && adjustment.end_pay_adj >= pmt_no
               pmt_amt_adj += adjustment.pmt_adjustment;
             else
               pmt_amt_adj = pmt_amt_adj;

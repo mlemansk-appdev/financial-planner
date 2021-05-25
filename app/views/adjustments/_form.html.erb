@@ -18,8 +18,7 @@
 
   <div class="field">
     <%= form.label :loan_id %>
-    <%= form.number_field :loan_id %>
-    <%= form.collection_select :loan_id, Loan.order(:loan_name),:id,:loan_name, include_blank: true %>  %>
+    <%= form.collection_select :loan_id, current_user.loans.order(:loan_name),:id,:loan_name, include_blank: true %>  
   </div>
 
   <%= form.hidden_field :user_id, value: current_user.id%>
