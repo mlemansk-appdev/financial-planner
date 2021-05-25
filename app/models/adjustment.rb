@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: adjustments
+#
+#  id                 :bigint           not null, primary key
+#  payment_occurrence :string
+#  loan_id            :integer
+#  user_id            :integer
+#  pmt_adjustment     :float
+#  beg_pay_adj        :integer
+#  end_pay_adj        :integer
+#  adjustment_details :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
 class Adjustment < ApplicationRecord
     belongs_to :loan
     belongs_to :user
