@@ -2,7 +2,9 @@
 
 <h1>Adjustments</h1>
 
-<table>
+<%= link_to 'Add a new adjustment',new_adjustment_path, class: "btn btn-block btn-outline-secondary" %>
+
+<table class="table">
   <thead>
     <tr>
       <th>Payment occurrence</th>
@@ -26,9 +28,8 @@
         <td><%= adjustment.beg_pay_adj %></td>
         <td><%= adjustment.end_pay_adj %></td>
         <td><%= adjustment.adjustment_details %></td>
-        <td><%= link_to 'Show', adjustment %></td>
         <td><%= link_to 'Edit', edit_adjustment_path(adjustment) %></td>
-        <td><%= link_to 'Destroy', adjustment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', adjustment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
