@@ -3,7 +3,7 @@ class LoansController < ApplicationController
 
    def index
     
-      @loans = current_user.loans.all
+      @loans = current_user.loans
       
       # Initialize Variable
       @pmt_schedule_chart = [];   
@@ -105,7 +105,6 @@ class LoansController < ApplicationController
   end
 
   def edit
-    @loan = Loan.find(params.fetch("id"))
 
     render
   end
