@@ -93,34 +93,9 @@
 </div>
 
 
-        
-<!--<div>-->
-<!--  < % @loans.each_with_index do |loan , index| %>-->
-<!--    < %= column_chart [ -->
-<!--        {name: loan.loan_name , data: @pmt_schedule_chart[index]} ,-->
-<!--        {name: loan.loan_name , data: @adj_pmt_schedule_chart[index]} ,-->
-<!--    ] %>-->
-<!--  < % end %>-->
-<!--</div>-->
-<!--<div>-->
-<!--  < %= column_chart @data.map { |data|-->
-<!--    {name: data.fetch(:name) , data: data.fetch(:data)} -->
-<!--  } , stacked: true , prefix: "$" , thousands: "," %>-->
-<!--</div>-->
-<!--<div>-->
-<!--  < %= column_chart @data_adj.map { |data|-->
-<!--    {name: data.fetch(:name) , data: data.fetch(:data)} -->
-<!--  } , stacked: true , prefix: "$" , thousands: "," %>-->
-<!--</div>-->
-
 <div>
   <%= column_chart [{name: "Total Balance" , data: @total_pmt_schedule_chart} , {name: "Total Balance with Adjustments" , data: @total_adj_pmt_schedule_chart}], prefix: "$" , thousands: "," %>
 </div> 
-
-
-<!--<div>-->
-<!--  < %= line_chart [{name: "Balance", data: @pmt_schedule_chart} , {name: "Adj Balance", data: @adj_pmt_schedule_chart}] %>-->
-<!--</div>-->
 
 <div class="row mb-3">
   <div class="col-md-12">

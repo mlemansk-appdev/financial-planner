@@ -22,8 +22,6 @@ class LoansController < ApplicationController
         pmt_schedule_adj = loan.adj_pay_schedule(loan.adjustments);
         @pmt_schedule_chart[index] =  pmt_schedule.map{|t| [ t["pmt_no"], t["beg_balance"] ] };
         @adj_pmt_schedule_chart[index] = pmt_schedule_adj.map{|t| [ t["pmt_no"], t["beg_balance_adj"] ] };
-        @data << {name: loan.loan_name , data: @pmt_schedule_chart[index]};
-        @data_adj << {name: loan.loan_name , data: @adj_pmt_schedule_chart[index]};
         @total_interest += pmt_schedule[-1].fetch("cum_int");
         @total_adj_interest += pmt_schedule_adj[-1].fetch("cum_int_adj");
         @pay_off_period[index] = pmt_schedule.length;
