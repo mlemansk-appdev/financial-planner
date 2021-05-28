@@ -1,8 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
   <div class="container">
-    <a class="navbar-brand" href="/">
-      Loan Planner
-    </a>
+    <%= link_to 'Loan Planner', root_path, class: "navbar-brand" %>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible-nav-links" aria-controls="collapsible-nav-links" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -15,43 +13,31 @@
           <!--  Resources-->
           <!--</a>-->
           <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-          <li class="nav-item">
-            <a href="/adjustments" class="nav-link">
-              Payment Adjustments
-            </a>
+          <li class="nav-item">           
+            <%= link_to 'Loans', loans_path, class: "nav-link" %>
           </li>
-           <li class="nav-item">
-              <a href="/loans" class="nav-link">
-                Loans
-              </a>
-            </li>
+          <li class="nav-item">
+            <%= link_to 'Adjustments', adjustments_path, class: "nav-link" %>
+          </li>
           </div>
         <!--</li>-->
       </ul>
       <ul class="navbar-nav">
         <% if current_user.blank? %>
           <li class="nav-item">
-            <a href="/users/sign_in" class="nav-link">
-              Sign in
-            </a>
+            <%= link_to 'Sign in', user_session_path, class: "nav-link" %>
           </li>
 
           <li class="nav-item">
-            <a href="/users/sign_up" class="nav-link">
-              Sign up
-            </a>
+            <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
           </li>
         <% else %>
           <li class="nav-item">
-            <a href="/users/edit" class="nav-link">
-              Edit profile
-            </a>
+            <%= link_to 'Edit profile', edit_user_registration_path, class: "nav-link" %>
           </li>
 
           <li class="nav-item">
-            <a href="/users/sign_out" data-method="delete" class="nav-link">
-              Sign out
-            </a>
+            <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "nav-link" %>
           </li>
         <% end %>
       </ul>
