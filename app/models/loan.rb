@@ -31,11 +31,11 @@ class Loan < ApplicationRecord
     
     def pay_schedule
         i=0
-        end_balance = self.current_balance
-        pmt_amt = self.monthly_min_payment
-        interest_rate =  self.interest_rate.to_f / 100
-        periods = self.periods_in_year
-        mo_int = interest_rate/periods
+        end_balance = current_balance
+        pmt_amt = monthly_min_payment
+        int_rate =  interest_rate / 100
+        periods = periods_in_year
+        mo_int = int_rate/periods
         cum_int = 0
         
         @pmt_schedule = []
@@ -69,11 +69,11 @@ class Loan < ApplicationRecord
 
     def adj_pay_schedule( pmt_adj_table )
         j=0
-        end_balance_adj = self.current_balance
-        pmt_amt = self.monthly_min_payment
-        interest_rate =  self.interest_rate.to_f / 100
-        periods = self.periods_in_year
-        mo_int = interest_rate/periods
+        end_balance_adj = current_balance
+        pmt_amt = monthly_min_payment
+        int_rate =  interest_rate / 100
+        periods = periods_in_year
+        mo_int = int_rate/periods
         cum_int_adj = 0
         
         @pmt_schedule_adj = []
