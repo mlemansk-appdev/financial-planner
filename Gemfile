@@ -85,4 +85,4 @@ end
 
 #App Specific Gems
 gem 'chartkick'
-gem 'sprockets', '~> 4.0' #May not need anymore...got chartkick to work through webpacker
+#gem 'sprockets', '~> 4.0' #May not need anymore...got chartkick to work through webpacker
