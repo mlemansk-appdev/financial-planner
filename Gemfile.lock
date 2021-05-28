@@ -418,7 +418,6 @@ DEPENDENCIES
   selenium-webdriver
   skylight
   spring
-  sprockets (~> 4.0)
   strip_attributes
   turbolinks (~> 5)
   tzinfo-data
