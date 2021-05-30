@@ -49,38 +49,7 @@
 
       <% @loans.each_with_index do |loan , index| %>
       <tr>
-
-        <td>
-          <%= loan.loan_name %>
-        </td>
-
-        <td>
-          <%= number_to_currency(loan.current_balance) %>
-        </td>
-        
-        <td>
-          <%= number_to_currency(loan.original_amount) %>
-        </td>
-
-        <td>
-          <%= number_to_percentage(loan.interest_rate) %>
-        </td>
-
-        <td>
-          <%= number_to_currency(loan.monthly_min_payment) %>
-        </td>
-        
-        <td>
-          <%= @pay_off_period[index] %>
-        </td>
-
-        <td>
-          <%= @pay_off_period_adj[index] %>
-        </td>
-
-        <td>
-          <%= link_to "Show details", loan %>
-        </td>
+        <%= render "loans/index_row", loan: loan, index: index %>
       </tr>
       <% end %>
     </table>

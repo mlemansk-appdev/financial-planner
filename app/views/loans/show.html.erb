@@ -6,15 +6,11 @@
 
     <div class="row mb-3">
       <div class="col">
-        <a href="/loans" class="btn btn-block btn-outline-secondary">
-          Go back
-        </a>
+        <%= link_to "Go back", loans_path, class: "btn btn-block btn-outline-secondary" %>
       </div>
 
       <div class="col">
-        <a href="/loans/<%= @loan.id %>/edit" class="btn btn-block btn-outline-secondary">
-          Edit loan
-        </a>
+        <%= link_to "Edit loan", edit_loan_path, class: "btn btn-block btn-outline-secondary" %>
       </div>
 
        <div class="col">
