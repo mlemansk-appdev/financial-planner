@@ -48,9 +48,7 @@
       </tr>
 
       <% @loans.each_with_index do |loan , index| %>
-      <tr>
         <%= render "loans/index_row", loan: loan, index: index %>
-      </tr>
       <% end %>
     </table>
   </div>
