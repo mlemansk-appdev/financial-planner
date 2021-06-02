@@ -16,8 +16,8 @@ class AdjustmentsController < ApplicationController
 
   # GET /adjustments/new
   def new
-    authorize Adjustment
     @adjustment = Adjustment.new
+    authorize @adjustment
   end
 
   # GET /adjustments/1/edit
@@ -27,8 +27,8 @@ class AdjustmentsController < ApplicationController
 
   # POST /adjustments or /adjustments.json
   def create
-    authorize Adjustment
     @adjustment = Adjustment.new(adjustment_params)
+    authorize @adjustment
 
     respond_to do |format|
       if @adjustment.save

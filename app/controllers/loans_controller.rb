@@ -89,17 +89,14 @@ class LoansController < ApplicationController
   end
 
   def new
-    authorize Loan
     @loan = Loan.new
-
-    render
+    authorize @loan
   end
 
-  def create
-    authorize Loan
-    
+  def create 
     @loan = Loan.new(loan_params)
-    
+    authorize @loan
+
     respond_to do |format|
       if @loan.save
         format.html { redirect_to @loan, notice: "Loan was successfully created." }
