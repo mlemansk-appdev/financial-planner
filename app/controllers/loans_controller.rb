@@ -1,10 +1,14 @@
 class LoansController < ApplicationController
   before_action :set_loan, only: %i[ show edit update destroy ]
+  after_action :verify_policy_scoped, only: [:index]
+  after_action :verify_authorized, except: [:index]
+
 
    def index
-    
-      @loans = current_user.loans
-      
+      #Replaced with Pundit Scope
+      #@loans = current_user.loans
+      @loans = policy_scope(Loan)
+
       # Initialize Variable
       @pmt_schedule_chart = [];   
       @adj_pmt_schedule_chart = []; 
@@ -85,14 +89,17 @@ class LoansController < ApplicationController
   end
 
   def new
+    authorize Loan
     @loan = Loan.new
 
     render
   end
 
   def create
+    authorize Loan
+    
     @loan = Loan.new(loan_params)
-
+    
     respond_to do |format|
       if @loan.save
         format.html { redirect_to @loan, notice: "Loan was successfully created." }
@@ -105,12 +112,12 @@ class LoansController < ApplicationController
   end
 
   def edit
-
+    authorize @loan
     render
   end
 
   def update
-
+    authorize @loan
     respond_to do |format|
       if @loan.update(loan_params)
         format.html { redirect_to @loan, notice: "Loan was successfully updated." }
@@ -123,6 +130,7 @@ class LoansController < ApplicationController
   end
 
   def destroy
+    authorize @loan
     @loan.destroy
 
     respond_to do |format|
