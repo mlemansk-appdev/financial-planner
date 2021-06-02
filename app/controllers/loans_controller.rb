@@ -72,7 +72,9 @@ class LoansController < ApplicationController
   end
 
   def show
-  
+    #Pundit 
+    authorize @loan 
+
     @pmt_schedule = @loan.pay_schedule;
     @pmt_schedule_adj = @loan.adj_pay_schedule(@loan.adjustments)
     
