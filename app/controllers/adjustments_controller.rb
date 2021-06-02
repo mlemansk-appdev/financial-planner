@@ -1,26 +1,33 @@
 class AdjustmentsController < ApplicationController
   before_action :set_adjustment, only: %i[ show edit update destroy ]
+  after_action :verify_policy_scoped, only: [:index]
+  after_action :verify_authorized, except: [:index]
 
   # GET /adjustments or /adjustments.json
   def index
-    @adjustments = current_user.adjustments.all
+    #@adjustments = current_user.adjustments.all
+    @adjustments = policy_scope(Adjustment)
   end
 
   # GET /adjustments/1 or /adjustments/1.json
   def show
+    authorize @adjustment
   end
 
   # GET /adjustments/new
   def new
+    authorize Adjustment
     @adjustment = Adjustment.new
   end
 
   # GET /adjustments/1/edit
   def edit
+    authorize @adjustment
   end
 
   # POST /adjustments or /adjustments.json
   def create
+    authorize Adjustment
     @adjustment = Adjustment.new(adjustment_params)
 
     respond_to do |format|
@@ -36,6 +43,7 @@ class AdjustmentsController < ApplicationController
 
   # PATCH/PUT /adjustments/1 or /adjustments/1.json
   def update
+    authorize @adjustment
     respond_to do |format|
       if @adjustment.update(adjustment_params)
         format.html { redirect_to @adjustment, notice: "Adjustment was successfully updated." }
@@ -49,6 +57,7 @@ class AdjustmentsController < ApplicationController
 
   # DELETE /adjustments/1 or /adjustments/1.json
   def destroy
+    authorize @adjustment
     @adjustment.destroy
     respond_to do |format|
       format.html { redirect_to adjustments_url, notice: "Adjustment was successfully destroyed." }
