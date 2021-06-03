@@ -122,4 +122,11 @@ class Loan < ApplicationRecord
         
         return @pmt_schedule_adj
     end
+
+    def monthly_min_payment_for_payback_period( payback_period )
+      rate = interest_rate/100/periods_in_year
+      periods = payback_period * periods_in_year
+
+      calculated_monthly_min_payment = original_amount * ( rate*(1 + rate)**periods) / ((1+rate)**periods -1)
+    end
 end

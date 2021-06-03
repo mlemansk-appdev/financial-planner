@@ -1,0 +1,11 @@
+{
+  "name": "My Financial Planner",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:seed sample_data"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  }
+}
