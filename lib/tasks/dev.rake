@@ -50,7 +50,7 @@ task({ :sample_data => :environment}) do
       rate = loan.interest_rate/100/12
       periods = EXAMPLE_PAYBACK_IN_YEARS.sample * loan.periods_in_year
 
-      loan.monthly_min_payment = loan.original_amount * ( rate*(1 + rate)**periods) / ((1+rate)**periods -1)
+      loan.monthly_min_payment = loan.monthly_min_payment_for_payback_period(EXAMPLE_PAYBACK_IN_YEARS.sample)
 
       loan.save
       p loan.errors.full_messages if loan.errors.any?
