@@ -8,14 +8,15 @@ task({ :sample_data => :environment}) do
   # Create Sample Users
     #  email                  :string           default(""), not null
     #  encrypted_password     :string           default(""), not null
-  email = ["alice@example.com", "bob@example.com", "carol@example.com"]
 
-  3.times do |count|
-    user = User.new
-    user.email = email.at(count)
-    user.password = "password"
-    user.save
-  end
+  user_hashes = [
+    { email: "alice@example.com", password: "password" },
+    { email: "bob@example.com", password: "password" },
+    { email: "carol@example.com", password: "password" }
+  ]
+
+  User.create(user_hashes)
+
 
   p "Added #{User.count} Users"
 
@@ -29,33 +30,34 @@ task({ :sample_data => :environment}) do
     #  monthly_min_payment :float
 
     #cur_bal = [1000, 5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000]
-    org_bal = [1000, 5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000]
-    int_rate = [2, 3, 4, 5, 6]
-    payback_per = [2, 4, 6]
-    per_in_year = 12
+    EXAMPLE_ORIGINAL_BALANCES = [1000, 5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000]
+    EXAMPLE_INTEREST_RATES = [2, 3, 4, 5, 6]
+    EXAMPLE_PAYBACK_IN_YEARS = [2, 4, 6]
+    EXAMPLE_PERIODS_IN_A_YEAR  = 12
     users = User.all
-    l_name = ["Car", "Car 2", "Student Loan", "Grad School", "Credit Card"]
+    EXAMPLE_LOAN_NAMES = ["Car", "Car 2", "Student Loan", "Grad School", "Credit Card"]
 
     10.times do
       loan = Loan.new
-      loan.current_balance = org_bal.sample
+      loan.current_balance = EXAMPLE_ORIGINAL_BALANCES.sample
       loan.original_amount = loan.current_balance
-      loan.interest_rate = int_rate.sample
-      loan.periods_in_year = per_in_year
-      loan.user_id = users.sample.id
-      loan.loan_name = l_name.sample
+      loan.interest_rate = EXAMPLE_INTEREST_RATES.sample
+      loan.periods_in_year = EXAMPLE_PERIODS_IN_A_YEAR
+      loan.user = users.sample
+      loan.loan_name = EXAMPLE_LOAN_NAMES.sample
       
       # variables for min payments
       rate = loan.interest_rate/100/12
-      periods = payback_per.sample * loan.periods_in_year
+      periods = EXAMPLE_PAYBACK_IN_YEARS.sample * loan.periods_in_year
 
       loan.monthly_min_payment = loan.original_amount * ( rate*(1 + rate)**periods) / ((1+rate)**periods -1)
 
       loan.save
+      p loan.errors.full_messages if loan.errors.any?
     end
 
     p "Added #{Loan.count} Loans"
-
+    
   # Create Sample Adjustments
     #  payment_occurrence :string
     #  loan_id            :integer
@@ -67,10 +69,10 @@ task({ :sample_data => :environment}) do
 
     type = ["Recurring", "One Time", "Between"]
     loans = Loan.all
-    adj = [50, 100, 150, 200, 250, 300, 400, 500]
-    beg_adj = [1, 5, 10, 12, 18]
-    end_adj = [3, 4, 5, 12]
-    details = ["Bonus", "Extra", "Budget", "Adjustment 1", "Adjustment 2", "Adjustment 3", "Adjustment 4" ]
+    EXAMPLE_ADJUSTMENT_AMOUNTS = [50, 100, 150, 200, 250, 300, 400, 500]
+    EXAMPLE_BEGINNING_ADJUSTMENT_PERIOD = [1, 5, 10, 12, 18]
+    EXAMPLE_AJUSTMENT_LENGTHS = [3, 4, 5, 12]
+    EXAMPLE_DETAILS = ["Bonus", "Extra", "Budget", "Adjustment 1", "Adjustment 2", "Adjustment 3", "Adjustment 4" ]
 
     10.times do
       adjustment = Adjustment.new
@@ -78,11 +80,13 @@ task({ :sample_data => :environment}) do
       owner = users.sample
       adjustment.loan_id = owner.loans.sample.id 
       adjustment.user_id = owner.id
-      adjustment.pmt_adjustment = adj.sample
-      adjustment.beg_pay_adj = beg_adj.sample
-      adjustment.end_pay_adj = adjustment.beg_pay_adj + end_adj.sample
-      adjustment.adjustment_details = details.sample
+      adjustment.pmt_adjustment = EXAMPLE_ADJUSTMENT_AMOUNTS.sample
+      adjustment.beg_pay_adj = EXAMPLE_BEGINNING_ADJUSTMENT_PERIOD.sample
+      adjustment.end_pay_adj = adjustment.beg_pay_adj + EXAMPLE_AJUSTMENT_LENGTHS.sample
+      adjustment.adjustment_details = EXAMPLE_DETAILS.sample
       adjustment.save
+      
+      p adjustment.errors.full_messages if adjustment.errors.any?
 
     end    
     p "Added #{Adjustment.count} Adjustments"
