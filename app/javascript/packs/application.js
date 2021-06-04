@@ -9,6 +9,9 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "chartkick/chart.js"
 
+require("custom/toggleAdjustmentForm")
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
