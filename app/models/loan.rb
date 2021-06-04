@@ -129,4 +129,70 @@ class Loan < ApplicationRecord
 
       calculated_monthly_min_payment = original_amount * ( rate*(1 + rate)**periods) / ((1+rate)**periods -1)
     end
+
+    def Loan.index_page_charts
+      # Initialize Variable
+      @pmt_schedule_chart = []
+      @adj_pmt_schedule_chart = []
+      @total_interest = 0
+      @total_adj_interest = 0
+      @pay_off_period = []
+      @pay_off_period_adj = []
+      
+      @loans = Loan.all.to_ary   
+       
+        
+      @loans.each_with_index do |loan , index|
+        pmt_schedule = loan.pay_schedule;  
+        pmt_schedule_adj = loan.adj_pay_schedule(loan.adjustments);
+        @pmt_schedule_chart[index] =  pmt_schedule.map{|t| [ t["pmt_no"], t["beg_balance"] ] };
+        @adj_pmt_schedule_chart[index] = pmt_schedule_adj.map{|t| [ t["pmt_no"], t["beg_balance_adj"] ] };
+        @total_interest += pmt_schedule[-1].fetch("cum_int");
+        @total_adj_interest += pmt_schedule_adj[-1].fetch("cum_int_adj");
+        @pay_off_period[index] = pmt_schedule.length;
+        @pay_off_period_adj[index] = pmt_schedule_adj.length;
+      end
+      
+  
+  
+      # Summarize the data for the compare charts
+      total_balance = [];
+      total_periods = [];
+      @total_pmt_schedule_chart = [];
+      
+      @pmt_schedule_chart.each do |pmt|
+        pmt.each_with_index do |period , index|
+          if total_balance[index] == nil
+              total_balance[index] = 0;
+              total_balance[index] += period[1]
+          else
+              total_balance[index] += period[1]
+          end
+          
+          total_periods[index] = period[0]
+          @total_pmt_schedule_chart[index] = [total_periods[index] ,total_balance[index].round(2) ]
+        end
+      end
+      
+      total_adj_balance = [];
+      total_adj_periods = [];
+      @total_adj_pmt_schedule_chart = [];
+      
+      @adj_pmt_schedule_chart.each do |pmt|
+        pmt.each_with_index do |period , index|
+          if total_adj_balance[index] == nil
+              total_adj_balance[index] = 0;
+              total_adj_balance[index] += period[1]
+          else
+              total_adj_balance[index] += period[1]
+          end
+          
+          total_adj_periods[index] = period[0]
+          @total_adj_pmt_schedule_chart[index] = [total_adj_periods[index] ,total_adj_balance[index].round(2) ]
+        end
+      end
+
+      return @pmt_schedule_chart, @adj_pmt_schedule_chart, @total_interest, @total_adj_interest, @pay_off_period, @pay_off_period_adj
+    end
+
 end
