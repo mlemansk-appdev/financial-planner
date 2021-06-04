@@ -12,35 +12,36 @@
   <% end %>
 
 <hr>
-  <div class="form-group">
+  <div  class="form-group">
     <%= form.label :payment_occurrence %>
-    <%= form.select :payment_occurrence, [['Recurring'], ['One Time'], ['Between']] , {prompt: "Select occurrence type"},  {class: "form-control"} %>
+    <%= form.select :payment_occurrence, [['Recurring'], ['One Time'], ['Between']] , {prompt: "Select occurrence type"}, {class: "form-control"}  %>
+
   </div>
 
   <div class="form-group">
-    <%= form.label :loan_id %>
+    <%= form.label :loan_id, "Which loan does this apply to?" %>
     <%= form.collection_select :loan_id, current_user.loans.order(:loan_name),:id,:loan_name, {include_blank: true},  {class: "form-control"} %>  
   </div>
 
   <%= form.hidden_field :user_id, value: current_user.id%>
 
   <div class="form-group">
-    <%= form.label :pmt_adjustment %>
+    <%= form.label :pmt_adjustment, "What is the value in dollars of the adjustment?" %>
     <%= form.text_field :pmt_adjustment, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :beg_pay_adj %>
+    <%= form.label :beg_pay_adj, "In what period does this pay adjustment begin?" %>
     <%= form.number_field :beg_pay_adj, class: "form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :end_pay_adj %>
+  <div id="end_adjustment" class="form-group">
+    <%= form.label :end_pay_adj, "In what period does this pay adjustment end?" %>
     <%= form.number_field :end_pay_adj, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :adjustment_details %>
+    <%= form.label :adjustment_details, "Give a name to this adjustment" %>
     <%= form.text_field :adjustment_details, class: "form-control" %>
   </div>
 
@@ -49,3 +50,18 @@
   </div>
 <% end %>
 <hr>
+
+<script>
+  $(document).ready(function(){
+      $('#adjustment_payment_occurrence').on('change', function() {
+        if ( this.value == 'Between')
+        {
+          $("#end_adjustment").show();
+        }
+        else
+        {
+          $("#end_adjustment").hide();
+        }
+      });
+  });
+</script> 

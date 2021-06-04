@@ -32,7 +32,7 @@ class AdjustmentsController < ApplicationController
 
     respond_to do |format|
       if @adjustment.save
-        format.html { redirect_to @adjustment, notice: "Adjustment was successfully created." }
+        format.html { redirect_to adjustments_path, notice: "Adjustment was successfully created." }
         format.json { render :show, status: :created, location: @adjustment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +46,7 @@ class AdjustmentsController < ApplicationController
     authorize @adjustment
     respond_to do |format|
       if @adjustment.update(adjustment_params)
-        format.html { redirect_to @adjustment, notice: "Adjustment was successfully updated." }
+        format.html { redirect_to adjustments_path, notice: "Adjustment was successfully updated." }
         format.json { render :show, status: :ok, location: @adjustment }
       else
         format.html { render :edit, status: :unprocessable_entity }

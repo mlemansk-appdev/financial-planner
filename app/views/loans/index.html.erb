@@ -12,39 +12,16 @@
 
 <div class="row mb-3">
   <div class="col-md-12">
-    <table class="table">
+    <table class="table table-hover">
       <tr>
-
-        <th>
-          Loan Name
-        </th>
-
-        <th>
-          Current Balance
-        </th>
-        
-        <th>
-          Original Amount
-        </th>
-
-        <th>
-          Interest Rate
-        </th>
-
-        <th>
-          Monthly Minimum
-        </th>
-        
-        <th>
-           Original Payoff Period
-        </th>
-
-        <th>
-           Adjusted Payoff Period
-        </th>        
-        
-        <th>
-        </th>
+        <th> Loan Name </th>
+        <th> Current Balance </th>
+        <th> Original Amount </th>
+        <th> Interest Rate </th>
+        <th> Monthly Minimum </th>
+        <th> Original Payoff Period </th>
+        <th> Adjusted Payoff Period </th>        
+        <th> </th>
       </tr>
 
       <% @loans.each_with_index do |loan , index| %>
@@ -64,55 +41,24 @@
     <table class="table">
       <tr>
 
-        <th>
-          Total Interest with Minimum Payments
-        </th>
-
-        <th>
-          Original Time Until Payoff
-        </th>
-        <th>
-          Total Interest with Adjusted Payments
-        </th>
-        
-        <th>
-          Adjusted Time Until Payoff
-        </th>
-        
-        <th>
-          Total Savings!
-        </th>
-        
-                
-        <th>
-          Total Time Savings!
-        </th>
+        <th> Total Interest with Minimum Payments </th>
+        <th> Original Time Until Payoff </th>
+        <th> Total Interest with Adjusted Payments </th>
+        <th> Adjusted Time Until Payoff </th>
+        <th> Total Savings! </th>               
+        <th> Total Time Savings! </th>
       </tr>
       <tr>
-
-        <td>
-          <%= number_to_currency(@total_interest) %>
-        </td>
-        <td>
-          <%= @pay_off_period.max %>
-        </td>
-        <td>
-          <%= number_to_currency(@total_adj_interest) %>
-        </td>
-
-        <td>
-          <%= @pay_off_period_adj.max %>
-        </td>
-
-        <td>
-          <%= number_to_currency(@total_interest - @total_adj_interest ) %>
-        </td>
-
-        <td>
+        <td> <%= number_to_currency(@total_interest) %> </td>
+        <td> <%= @pay_off_period.max %> </td>
+        <td> <%= number_to_currency(@total_adj_interest) %> </td>
+        <td> <%= @pay_off_period_adj.max %> </td>
+        <td> <%= number_to_currency(@total_interest - @total_adj_interest ) %> </td>
+        <td> 
           <% if @pay_off_period_adj.max == nil || @pay_off_period.max == nil%>
-          0 Months
+            0 Months
           <% else %>
-          <%= @pay_off_period.max - @pay_off_period_adj.max %> Months
+            <%= @pay_off_period.max - @pay_off_period_adj.max %> Months
           <% end %>
         </td>
       </tr>

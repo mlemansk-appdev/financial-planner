@@ -1,0 +1,15 @@
+      <tr>
+        <td><%= adjustment.payment_occurrence %></td>
+        <td><%= adjustment.loan.loan_name %></td>
+        <td><%= number_to_currency(adjustment.pmt_adjustment) %></td>
+        <td><%= adjustment.beg_pay_adj %></td>
+        <td>
+          <% if adjustment.payment_occurrence == "Between" %>
+            <%= adjustment.end_pay_adj %></td>
+          <% else %>
+            -
+          <% end %>
+        <td><%= adjustment.adjustment_details %></td>
+        <td><%= link_to 'Edit', edit_adjustment_path(adjustment) %></td>
+        <td><%= link_to 'Delete', adjustment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
